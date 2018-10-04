@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/videos', function () {
+    $videos = [
+               "Vyt5uAFVCOc" => "Barbara the Snob",
+               "dlkjoo890" => "Why Hillary Clinton wears black pants.",
+               "lsd098" => "Making Baked Chicken.",
+               ];
+    return view('videos', ['videos' => $videos]);
+});
