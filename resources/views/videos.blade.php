@@ -20,6 +20,16 @@
               </tr>
             @endforeach
           </table>
+
+          <div>
+            <form action="videos/create" method='POST'>
+              @csrf
+              https://www.youtube.com/watch?v=ud-F0QM2z5E
+              <br/>
+              <input type="text" name="video" placeholder="New Video Link" />
+            </form>
+          </div>
+          
         </div>
       </div>
 
