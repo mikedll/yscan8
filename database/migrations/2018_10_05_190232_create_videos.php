@@ -15,12 +15,12 @@ class CreateVideos extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('vid')->unique()->nullable(false)
-            $table->string('title')
-            $table->integer('likes')
-            $table->integer('dislikes')
-            $table->integer('views')
-            $table->decimal('score', 8, 2)->default('0.2')
+            $table->string('vid')->unique()->nullable(false);
+            $table->string('title');
+            $table->integer('likes');
+            $table->integer('dislikes');
+            $table->integer('views');
+            $table->decimal('score', 8, 2)->default('0.2');
             $table->timestamps();
         });
     }

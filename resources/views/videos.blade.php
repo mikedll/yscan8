@@ -14,15 +14,15 @@
 
         <div>
           <table class="table">
-            @foreach(array_keys($videos) as $vid)
+            @foreach($videos as $video)
               <tr>
-                <td><a href="https://www.youtube.com/watch?v={{ $vid }}" target="_blank">{{ $videos[$vid] }}</a></td>
+                <td><a href="https://www.youtube.com/watch?v={{ $video->id }}" target="_blank">{{ $video->id }}</a></td>
               </tr>
             @endforeach
           </table>
 
           <div>
-            <form action="videos/create" method='POST'>
+            <form action="/videos/store" method='POST'>
               @csrf
               https://www.youtube.com/watch?v=ud-F0QM2z5E
               <br/>

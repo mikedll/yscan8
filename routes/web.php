@@ -15,11 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('videos', 'VideoController')->only(['store']);
+
 Route::get('/videos', function () {
-    $videos = [
-               "Vyt5uAFVCOc" => "Barbara the Snob",
-               "dlkjoo890" => "Why Hillary Clinton wears black pants.",
-               "lsd098" => "Making Baked Chicken.",
-               ];
+    $videos = App\Video::all();
     return view('videos', ['videos' => $videos]);
 });
