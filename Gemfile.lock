@@ -20,7 +20,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     builder (3.2.3)
-    cknife (1.1.0)
+    cknife (1.1.1)
       actionpack (~> 4.2.9)
       activesupport (~> 4.2.9)
       builder (~> 3.0)
