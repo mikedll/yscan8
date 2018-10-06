@@ -5,12 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Some Videos</title>
         <link rel="stylesheet" type="text/css" href="/css/app.css"/>
+        
     </head>
     <body>
 
       <div class="container" >
         
         <h3>This is an app supposedly about YouTube video popularity.</h3>
+        
         
         @if(session()->has('error'))
           <div class="alert alert-danger">
@@ -20,8 +22,24 @@
 
         <div>
           <table class="table">
+            <thead>
+              <tr>
+                <th>Views</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>
+                  Score
+                  <i class="fas fa-question-circle" title="Equation: (log(base100,views) * likes/dislikes)"></i>
+                </th>
+                <th>Video Title</th>
+              </tr>
+            </thead>
             @foreach($videos as $video)
               <tr>
+                <td>{!! $video->views !!}</td>
+                <td>{!! $video->likes !!}</td>
+                <td>{!! $video->dislikes !!}</td>
+                <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->score !!}</a></td>
                 <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
               </tr>
             @endforeach
@@ -30,9 +48,11 @@
           <div>
             <form action="/videos" method='POST'>
               @csrf
-              https://www.youtube.com/watch?v=ud-F0QM2z5E
               <br/>
-              <input type="text" name="video" placeholder="New Video Link" />
+              <div class="form-group">
+                <input type="text" name="video" class="form-control" placeholder="New Video Link" />
+              </div>
+              
             </form>
           </div>
           
