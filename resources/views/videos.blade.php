@@ -45,9 +45,9 @@
             </thead>
             @foreach($videos as $video)
               <tr>
-                <td>{!! General::brief_num($video->views) !!}</td>
-                <td>{!! General::brief_num($video->likes) !!}</td>
-                <td>{!! General::brief_num($video->dislikes) !!}</td>
+                <td>{!! General::brief_num($video->views, 1) !!}</td>
+                <td>{!! General::brief_num($video->likes, 1) !!}</td>
+                <td>{!! General::brief_num($video->dislikes, 1) !!}</td>
                 <td>{!! number_format($video->score, 2) !!}</td>
                 <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
               </tr>
