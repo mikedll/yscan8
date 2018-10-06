@@ -17,9 +17,9 @@ class CreateVideos extends Migration
             $table->increments('id');
             $table->string('vid')->unique()->nullable(false);
             $table->string('title');
-            $table->integer('likes');
-            $table->integer('dislikes');
-            $table->integer('views');
+            $table->bigInteger('likes');
+            $table->bigInteger('dislikes');
+            $table->bigInteger('views');
             $table->decimal('score', 8, 2)->default('0.2');
             $table->timestamps();
         });

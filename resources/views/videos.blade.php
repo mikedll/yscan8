@@ -20,6 +20,15 @@
           </div>
         @endif
 
+        <form action="/videos" method='POST'>
+              @csrf
+          <br/>
+          <div class="form-group">
+            <input type="text" name="video" class="form-control" placeholder="New Video Link" />
+          </div>
+          
+        </form>
+        
         <div>
           <table class="table">
             <thead>
@@ -29,32 +38,21 @@
                 <th>Dislikes</th>
                 <th>
                   Score
-                  <i class="fas fa-question-circle" title="Equation: (log(base100,views) * likes/dislikes)"></i>
+                  <i class="fas fa-question-circle" title="Equation: (log(base10,views) * likes/dislikes)"></i>
                 </th>
                 <th>Video Title</th>
               </tr>
             </thead>
             @foreach($videos as $video)
               <tr>
-                <td>{!! number_format($video->views) !!}</td>
-                <td>{!! number_format($video->likes) !!}</td>
-                <td>{!! number_format($video->dislikes) !!}</td>
+                <td>{!! General::brief_num($video->views) !!}</td>
+                <td>{!! General::brief_num($video->likes) !!}</td>
+                <td>{!! General::brief_num($video->dislikes) !!}</td>
                 <td>{!! number_format($video->score, 2) !!}</td>
                 <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
               </tr>
             @endforeach
           </table>
-
-          <div>
-            <form action="/videos" method='POST'>
-              @csrf
-              <br/>
-              <div class="form-group">
-                <input type="text" name="video" class="form-control" placeholder="New Video Link" />
-              </div>
-              
-            </form>
-          </div>
           
         </div>
       </div>
