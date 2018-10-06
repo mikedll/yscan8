@@ -1,7 +1,7 @@
 
 Some dependencies.
 
-    - [Laravel](https://laravel.com).
+    - Laravel 5.7.8
 
 ### Building PHP Locally for Development
 
