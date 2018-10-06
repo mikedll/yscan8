@@ -68,10 +68,10 @@ class VideoController extends Controller
 
         if($data['dislikes'] === 0) $data['dislikes'] = 1;
         if($data['likes'] === 0) $data['likes'] = 1;
-        
-        $data['score'] = log($data['views'], 100) * ($data['likes'] / $data['dislikes']);
-        
-        $video = tap(new Video($data))->save();
+
+        $newVideo = new Video($data);
+        $newVideo->calculateScore();
+        $newVideo->save();
         
         return redirect('/videos');
     }

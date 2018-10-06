@@ -14,4 +14,9 @@ class Video extends Model
         'views',
         'score'
     ];
+
+    public function calculateScore()
+    {
+        $this->score = log($this->views, 10) * ($this->likes / $this->dislikes);
+    }
 }

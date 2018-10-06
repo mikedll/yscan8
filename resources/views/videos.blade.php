@@ -36,10 +36,10 @@
             </thead>
             @foreach($videos as $video)
               <tr>
-                <td>{!! $video->views !!}</td>
-                <td>{!! $video->likes !!}</td>
-                <td>{!! $video->dislikes !!}</td>
-                <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->score !!}</a></td>
+                <td>{!! number_format($video->views) !!}</td>
+                <td>{!! number_format($video->likes) !!}</td>
+                <td>{!! number_format($video->dislikes) !!}</td>
+                <td>{!! number_format($video->score, 2) !!}</td>
                 <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
               </tr>
             @endforeach

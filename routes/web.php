@@ -18,6 +18,6 @@ Route::get('/', function () {
 Route::resource('videos', 'VideoController')->only(['store']);
 
 Route::get('/videos', function () {
-    $videos = App\Video::all();
+    $videos = App\Video::orderBy('score', 'desc')->get();
     return view('videos', ['videos' => $videos]);
 });
