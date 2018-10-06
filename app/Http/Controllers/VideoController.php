@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Exception;
+use Alaouy\Youtube\Facades\Youtube;
+use App\Video;
 
 class VideoController extends Controller
 {
@@ -34,20 +38,20 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-                                    'title' => 'required'
-                                    ]);
-
-        $matched = preg_match('/http(s)?:\/\/www\.youtube\.com\/watch\?v=([A-Za-z0-9]{11})/',
-                              'https://www.youtube.com/watch?v=Vyt5uAFVCOc',
-                              $matches);
-
-      
-        if($matched === 0) {
-            return redirect('/videos');
+        $videoId = null;        
+        try {
+            $videoId = Youtube::parseVidFromURL($request->input('video'));
+        } catch(Exception $e) {
+            if ($e->getMessage() === 'The supplied URL does not look like a Youtube URL') {
+                $request->session()->flash('error', "It looks like you didn't enter a YouTube URL.");
+                return redirect('/videos');
+            }
+            else
+                throw $e;
         }
 
-        $data['vid'] = $matches[2];
+        $data['vid'] = $videoId;        
+        $video = Youtube::getVideoInfo($data['vid']);
         
         // API call here...
         $apiResult = [
@@ -57,19 +61,17 @@ class VideoController extends Controller
                       'views' => 250000
                       ];
         
-        $data['title'] = $apiResult['title'];
-        $data['likes'] = $apiResult['likes'];
-        $data['dislikes'] = $apiResult['dislikes'];
-        $data['views'] = $apiResult['views'];
+        $data['title'] = $video->snippet->title;
+        $data['likes'] = $video->statistics->likeCount;
+        $data['dislikes'] = $video->statistics->dislikeCount;
+        $data['views'] = $video->statistics->viewCount;
 
         if($data['dislikes'] === 0) $data['dislikes'] = 1;
         if($data['likes'] === 0) $data['likes'] = 1;
         
         $data['score'] = log($data['views'], 10) * ($data['likes'] / $data['dislikes']);
         
-        Log::debug("Something. A score is: " . $data['score']);
-        
-        $video = tap(new App\Video($data))->save();
+        $video = tap(new Video($data))->save();
         
         return redirect('/videos');
     }

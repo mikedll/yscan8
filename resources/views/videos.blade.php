@@ -11,18 +11,24 @@
       <div class="container" >
         
         <h3>This is an app supposedly about YouTube video popularity.</h3>
+        
+        @if(session()->has('error'))
+          <div class="alert alert-danger">
+            {!! session('error') !!}
+          </div>
+        @endif
 
         <div>
           <table class="table">
             @foreach($videos as $video)
               <tr>
-                <td><a href="https://www.youtube.com/watch?v={{ $video->id }}" target="_blank">{{ $video->id }}</a></td>
+                <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
               </tr>
             @endforeach
           </table>
 
           <div>
-            <form action="/videos/store" method='POST'>
+            <form action="/videos" method='POST'>
               @csrf
               https://www.youtube.com/watch?v=ud-F0QM2z5E
               <br/>
