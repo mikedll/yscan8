@@ -9,46 +9,65 @@
   </head>
   <body>
 
-    <div class="container" >
-      
-      <h3>This is an app supposedly about YouTube video popularity.</h3>
-      
-      
-        @if(session()->has('message'))
-          <div class="alert alert-info">
-            {!! session('message') !!}
-          </div>
-        @endif
-        
-        @if(session()->has('error'))
-          <div class="alert alert-danger">
-            {!! session('error') !!}
-          </div>
-        @endif
+    <div class="container">
 
-        <form action="/videos" method='POST'>
-              @csrf
-          <br/>
-          <div class="form-group">
-            <input type="text" name="video" class="form-control" placeholder="New Video Link" />
-          </div>
+      <div class="row" >
+        <div class="col" >
+          <h3>YouTube Video Fervor Calculator</h3>    
+
+          <p>
+          This website calculates something called "fervor" of a
+          YouTube video. Fervor is arbitrarily defined here as a
+          notion of how good a YouTube video is, independent of how
+          popular it may be. Some videos may be good videos even
+          though hardly anyone has heard about them.
+          </p>
+          <p>
+          This app does this by reducing the importance of a video's
+          view count and escalating the importance of its likes and
+          dislikes.
+            
+          </p>
           
-        </form>
+          
+        </div>
+      </div>
+      
+      @if(session()->has('message'))
+        <div class="alert alert-info">
+            {!! session('message') !!}
+        </div>
+      @endif
+      
+      @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {!! session('error') !!}
+        </div>
+      @endif
+      
+      <form action="/videos" method='POST'>
+        @csrf
+        <br/>
+        <div class="form-group">
+          <input type="text" name="video" class="form-control" placeholder="New Video Link" />
+        </div>
         
-        <div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Views</th>
-                <th>Likes</th>
-                <th>Dislikes</th>
-                <th>
+      </form>
+        
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Views</th>
+              <th>Likes</th>
+              <th>Dislikes</th>
+              <th>
                   Score
-                  <i class="fas fa-question-circle" title="Equation: (log(base10,views) * likes/dislikes)"></i>
-                </th>
-                <th>Video Title</th>
-              </tr>
-            </thead>
+                <i class="fas fa-question-circle" title="Equation: (log(base10,views) * likes/dislikes)"></i>
+              </th>
+              <th>Video Title</th>
+            </tr>
+          </thead>
             @foreach($videos as $video)
               <tr>
                 <td>{!! General::brief_num($video->views, 1) !!}</td>
@@ -58,10 +77,14 @@
                 <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
               </tr>
             @endforeach
-          </table>
-          
-        </div>
+        </table>          
       </div>
 
-    </body>
+      <div class="row justify-content-center">
+            {{ $videos->links() }}
+      </div>
+      
+    </div>
+
+  </body>
 </html>
