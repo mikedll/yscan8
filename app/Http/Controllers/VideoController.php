@@ -17,7 +17,8 @@ class VideoController extends Controller
      */
     public function index()
     {
-        //
+        $videos = Video::orderBy('score', 'desc')->get();
+        return view('videos', ['videos' => $videos]);
     }
 
     /**
@@ -50,32 +51,21 @@ class VideoController extends Controller
                 throw $e;
         }
 
-        $data['vid'] = $videoId;        
-        $video = Youtube::getVideoInfo($data['vid']);
-        
-        // API call here...
-        $apiResult = [
-                      'title' => ("A video of " . $data['vid']),
-                      'likes' => 50,
-                      'dislikes' => 2,
-                      'views' => 250000
-                      ];
-        
-        $data['title'] = $video->snippet->title;
-        $data['likes'] = $video->statistics->likeCount;
-        $data['dislikes'] = $video->statistics->dislikeCount;
-        $data['views'] = $video->statistics->viewCount;
+        $video = Video::where('vid', '=', $videoId)->first();
+        if($video !== null) {
+            $request->session()->flash('message', 'Video is already in the database. Refreshed its statistics.');
+        } else {
+            $video = new Video(['vid' => $videoId]);
+        }
 
-        if($data['dislikes'] === 0) $data['dislikes'] = 1;
-        if($data['likes'] === 0) $data['likes'] = 1;
+        $video = $video->refreshStatistics();
 
-        $newVideo = new Video($data);
-        $newVideo->calculateScore();
-        $newVideo->save();
-        
+        if($video === null) {
+            $request->session()->flash('error', 'Unable to save video.');
+        }
         return redirect('/videos');
     }
-
+    
     /**
      * Display the specified resource.
      *
