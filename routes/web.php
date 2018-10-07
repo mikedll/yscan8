@@ -15,9 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('videos', 'VideoController')->only(['store']);
-
-Route::get('/videos', function () {
-    $videos = App\Video::orderBy('score', 'desc')->get();
-    return view('videos', ['videos' => $videos]);
-});
+Route::resource('videos', 'VideoController')->only(['store', 'index']);
