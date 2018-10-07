@@ -33,9 +33,9 @@
       <br/>
       <strong>Dislikes</strong>: {{ number_format($video->dislikes) }}
       <br/>
-      <strong>Like-to-dislike ratio:</strong>: {{ number_format($video->likes / $video->dislikes, 2) }}
+      <strong>Like-to-dislike ratio</strong>: {{ number_format($video->likes / $video->dislikes, 2) }}
       <br/>
-      <strong>Calculation:</strong>: log_10({{ number_format($video->views) }}) * {{ number_format($video->likes / $video->dislikes, 2) }}
+      <strong>Calculation</strong>: log_10({{ number_format($video->views) }}) * {{ number_format($video->likes / $video->dislikes, 2) }}
       <a target="_blank" href="http://www.google.com/search?q={{ urlencode('log_10(' . $video->views . ') * (' . $video->likes . ' / ' . $video->dislikes . ')') }}">See calculation on <i class="fab fa-google" ></i> Google</a>.
       <br/>
       <strong>Score</strong>: {{ $video->score }}
