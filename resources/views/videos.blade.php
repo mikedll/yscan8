@@ -16,11 +16,8 @@
       <p>
           This app does this by reducing the importance of a video's
           view count and escalating the importance of its likes and
-          dislikes.
-        
+          dislikes.        
       </p>
-          The source code of this webapp is <a href="https://github.com/mikedll/yscan8" target="_blank">here on <i class="fab fa-github" ></i> Github</a>.
-      
     </div>
   </div>
 
@@ -47,7 +44,6 @@
     <div class="form-group">
       <input type="text" name="video" class="form-control" placeholder="New Video Link" />
     </div>
-    
   </form>
   
   <div>
