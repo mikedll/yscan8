@@ -28,7 +28,8 @@
           dislikes.
             
           </p>
-          
+
+          The source code of this webapp is <a href="https://github.com/mikedll/yscan8" target="_blank">here on <i class="fab fa-github" ></i> Github</a>.
           
         </div>
       </div>
