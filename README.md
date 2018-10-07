@@ -2,6 +2,8 @@
 Some dependencies.
 
     - Laravel 5.7.8
+    - Vue 2.5.17
+    - Webpack 3.12.0
 
 ### Building PHP Locally for Development
 
@@ -28,4 +30,9 @@ supports sqlite with the aforementioned variants in place.
      phpbrew install 7.2.10 +dbs +default +hash +filter
 
 That takes about twelve minutes.
+
+
+### Credits
+
+`bg1.jpg` background photo used from Pixabay user [sspiehs3](https://pixabay.com/en/joshua-tree-tree-park-1772159/) (CC0 license).
 

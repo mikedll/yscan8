@@ -10,13 +10,14 @@
     </div>
     
     <div class="row">
-      <div class="channel-videos-list">
+      <div class="col channel-videos-list">
         <div class="video-deck card-deck" v-for="(deck, deckIndex) in decks" v-bind:key="deckIndex">
           
           <div class="card border-dark bg-light video-card" v-for="v in deck" v-bind:key="v.id">
             <div class="card-body">
               <h5 class="card-title">
                 <a :href="videoLink(v)">{{ v.title }}</a>
+                <a target="_blank" :href="yLink(v)"><i class="fab fa-youtube"></i></a>
               </h5>
               <p class="card-text">
                 Score: {{ v.score }}
@@ -83,6 +84,9 @@ export default {
     },
     videoLink: function(v) {
       return '/videos/' + v.id;
+    },
+    yLink: function(v) {
+      return "https://www.youtube.com/watch?v=" + v.vid;
     }
   }
 }
