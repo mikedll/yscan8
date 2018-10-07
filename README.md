@@ -31,3 +31,8 @@ supports sqlite with the aforementioned variants in place.
 
 That takes about twelve minutes.
 
+
+### Credits
+
+`bg1.jpg` background photo used from Pixabay user [sspiehs3](https://pixabay.com/en/joshua-tree-tree-park-1772159/) (CC0 license).
+
