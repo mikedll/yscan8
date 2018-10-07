@@ -53,7 +53,7 @@
         </div>
         
       </form>
-        
+      
       <div>
         <table class="table">
           <thead>
@@ -66,15 +66,19 @@
                 <i class="fas fa-question-circle" title="Equation: (log(base10,views) * likes/dislikes)"></i>
               </th>
               <th>Video Title</th>
+              <th>Owner</th>
+              <th>Published</th>
             </tr>
           </thead>
             @foreach($videos as $video)
               <tr>
-                <td>{!! General::brief_num($video->views, 1) !!}</td>
-                <td>{!! General::brief_num($video->likes, 1) !!}</td>
-                <td>{!! General::brief_num($video->dislikes, 1) !!}</td>
-                <td>{!! number_format($video->score, 2) !!}</td>
-                <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{!! $video->title !!}</a></td>
+                <td>{{ General::brief_num($video->views, 1) }}</td>
+                <td>{{ General::brief_num($video->likes, 1) }}</td>
+                <td>{{ General::brief_num($video->dislikes, 1) }}</td>
+                <td>{{ number_format($video->score, 2) }}</td>
+                <td><a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank">{{ $video->title }}</a></td>
+                <td><a href="https://www.youtube.com/channel/{!! $video->channel_id !!}" target="_blank">{{ $video->owner }}</a></td>
+                <td>{{ $video->published_at->format('M Y') }}</td>
               </tr>
             @endforeach
         </table>          

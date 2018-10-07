@@ -26,3 +26,18 @@ Artisan::command('redoscores', function () {
     }
     $this->comment("Done.");
 })->describe('Recalculate all video scores, if the score equation has changed.');
+
+Artisan::command('refreshall', function () {
+    $videos = App\Video::all();
+    foreach($videos as $v) {
+        $v->refreshStatistics();
+        $this->comment("Refreshed " . $v->id);
+    }
+    $this->comment("Done.");
+})->describe('Refresh all video details.');
+
+
+Artisan::command('t5', function () {
+    
+})->describe('Arbitrary test command for development.');
+
