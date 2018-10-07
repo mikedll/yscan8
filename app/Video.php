@@ -43,7 +43,7 @@ class Video extends Model
         $this->views = $videoInfo->statistics->viewCount;
 
         $this->calculateScore();
-        return $this->save();
+        return tap($this)->save();
     }
     public function calculateScore()
     {

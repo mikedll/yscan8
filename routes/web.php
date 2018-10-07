@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('videos', 'VideoController')->only(['store', 'index']);
+Route::resource('videos', 'VideoController')->only(['store', 'index', 'show']);
