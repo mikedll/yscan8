@@ -35,7 +35,7 @@
 
     <div class="row">
       <div class="col">
-        <a href="/videos">Video List</a>        
+        <a href="/">Video List</a>
       </div>
     </div>
     

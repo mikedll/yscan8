@@ -11,9 +11,7 @@
    |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'VideoController@index')->name('root');
 
 Route::resource('channels', 'ChannelController')->only(['show']);
 
