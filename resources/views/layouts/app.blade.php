@@ -7,11 +7,13 @@
     <title>YScan8</title>
     <link rel="stylesheet" type="text/css" href="/css/app.css"/>
     <script src="/js/app.js"></script>
+
+    @yield('head')
     
   </head>
   <body>
 
-    <div class="container">
+    <div class="container" id="main-container">
       
       @yield('content')
 

@@ -22,7 +22,7 @@
 
       <br/>
 
-      <strong>Video Owner</strong>: {{ $video->owner }}
+      <strong>Video Owner</strong>: <a href="{{ route('channels.show', ['channel' => $video->channel_id]) }}">{{ $video->owner }}</a>
       <a href="https://www.youtube.com/channel/{!! $video->channel_id !!}" target="_blank"><i class="fab fa-youtube" title="Visit channel"  ></i></a>
       <br/>
       <br/>

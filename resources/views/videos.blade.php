@@ -71,7 +71,7 @@
           <td>{{ General::brief_num($video->dislikes, 1) }}</td>
           <td>{{ number_format($video->score, 2) }}</td>
           <td><a href="{{ route('videos.show', ['video' => $video]) }}">{{ $video->title }}</a></td>
-          <td>{{ $video->owner }}</td>
+          <td><a href="{{ route('channels.show', ['channel' => $video->channel_id]) }}">{{ $video->owner }}</a></td>
           <td>{{ $video->published_at->format('M Y') }}</td>
           <td>
             <a href="https://www.youtube.com/watch?v={!! $video->vid !!}" target="_blank"><i class="fas fa-video" title="Visit video" ></i></a>
