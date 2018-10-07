@@ -15,8 +15,18 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+import channelDisplay from './components/channel_display.vue';
 
-const app = new Vue({
-    el: '#app'
+document.addEventListener('DOMContentLoaded', function() {
+  const app = new Vue({
+    el: '#main-container',
+    components: {
+      channelDisplay
+    },
+    data: function() {
+      return {
+        videos: (typeof __bootstrap !== 'undefined') ? __bootstrap : null
+      }
+    }
+  });
 });
