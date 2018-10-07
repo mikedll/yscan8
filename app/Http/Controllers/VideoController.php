@@ -45,7 +45,7 @@ class VideoController extends Controller
         } catch(Exception $e) {
             if ($e->getMessage() === 'The supplied URL does not look like a Youtube URL') {
                 $request->session()->flash('error', "It looks like you didn't enter a YouTube URL.");
-                return redirect(route('videos.index'));
+                return redirect(route('root'));
             }
             else
                 throw $e;
@@ -62,7 +62,7 @@ class VideoController extends Controller
 
         if($video === null) {
             $request->session()->flash('error', 'Unable to save video.');
-            return redirect(route('videos.index'));
+            return redirect(route('root'));
         }
 
         return redirect(route('videos.show', ['video' => $video]));

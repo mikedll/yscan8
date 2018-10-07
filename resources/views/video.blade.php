@@ -43,7 +43,7 @@
 
       <br/>
       <br/>
-      <a href="/videos">Back to Video List</a>
+      <a href="{{ route('root') }}">Video List</a>
       
     </div>
   </div>    
