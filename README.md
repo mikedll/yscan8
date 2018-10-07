@@ -2,6 +2,8 @@
 Some dependencies.
 
     - Laravel 5.7.8
+    - Vue 2.5.17
+    - Webpack 3.12.0
 
 ### Building PHP Locally for Development
 
