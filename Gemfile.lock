@@ -60,7 +60,7 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     ipaddress (0.8.3)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.5.5)
@@ -105,6 +105,7 @@ PLATFORMS
 
 DEPENDENCIES
   cknife (~> 1.1.0)
+  loofah (~> 2.2.3)
 
 BUNDLED WITH
    1.16.5
