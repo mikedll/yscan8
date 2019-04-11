@@ -1,15 +1,36 @@
 
-Some dependencies.
 
-    - Laravel 5.7.8
-    - Vue 2.5.17
-    - Webpack 3.12.0
+## Depedencies
+
+     composer install
 
 ### Building PHP Locally for Development
 
-You don't have to do this; you can install PHP using your system.
-I'm used to doing things with RVM and wanted to prepare to use
-other versions of PHP on my system concurrently.
+#### Linux (Ubuntu 16)
+
+Using phpbrew:
+
+     phpbrew install 7.2.10 +dbs +default +hash +filter
+
+#### OS X 10.14
+
+     phpbrew install 7.2.17 +dbs +default +hash +filter +bz2="$(brew --prefix bzip2)" +zlib="$(brew --prefix zlib)"
+     
+You may have to actually install bzip2 and zlib, not to mention libpq
+and anything else it complains is missing.
+
+     # Install php-version on OS X
+     brew tap wilmoore/formulae
+     brew install php-version     
+
+Modify your bash script accordingly to load php 7 on a new shell (see
+output of php-version installation).
+
+### phpbrew Build Notes
+
+You don't have to build php using a version manager; you can install
+PHP using your system.  I'm used to doing things with RVM and wanted
+to prepare to use other versions of PHP on my system concurrently.
 
 Don't use [php-build](https://php-build.github.io). That project
 doesn't support building PHP extensions (easily) into its PHP
@@ -31,7 +52,12 @@ supports sqlite with the aforementioned variants in place.
 
 That takes about twelve minutes.
 
+### Tech used.
 
+    - Laravel 5.7.8
+    - Vue 2.5.17
+    - Webpack 3.12.0
+    
 ### Credits
 
 `bg1.jpg` background photo used from Pixabay user [sspiehs3](https://pixabay.com/en/joshua-tree-tree-park-1772159/) (CC0 license).
