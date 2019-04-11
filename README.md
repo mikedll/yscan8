@@ -1,8 +1,21 @@
 
 
-## Depedencies
+## Depedencies and dev Installation
+
 
      composer install
+     npm install
+
+Copy .env.example to .env and fill in an app key.
+
+    php artisan key:generate
+
+Fill in a YouTube key (manually).
+
+## Serve the App Locally
+     
+     npm run dev
+     php artisan serve
 
 ### Building PHP Locally for Development
 
