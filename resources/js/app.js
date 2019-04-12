@@ -16,12 +16,13 @@ window.Vue = require('vue');
  */
 
 import channelDisplay from './components/channel_display.vue';
+import videoList from './components/video_list.vue';
 
 document.addEventListener('DOMContentLoaded', function() {
   const app = new Vue({
     el: '#main-container',
     components: {
-      channelDisplay
+      channelDisplay, videoList
     },
     data: function() {
       return {
