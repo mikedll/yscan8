@@ -1,8 +1,6 @@
 <template>
 
   <div>
-    This is the video list.
-
     <div>
       <table class="table">
         <thead>
@@ -22,16 +20,16 @@
         </thead>
         
         <tr v-for="v in results.data" v-bind:key="v.id">
-          <td>views</td>
-          <td>likes</td>
-          <td>dislikes</td>
-          <td>score</td>
-          <td><a href="/videos/id">title</a></td>
-          <td><a href="/channels/cid">owner</a></td>
-          <td>published 'M Y'</td>
+          <td>{{ formatted(v.views) }} </td>
+          <td>{{ formatted(v.likes) }} </td>
+          <td>{{ formatted(v.dislikes) }}</td>
+          <td>{{ v.score }}</td>
+          <td><a :href="yLink(v)">{{ v.title }}</a></td>
+          <td><a :href="channelLink(v)">{{ v.owner }}</a></td>
+          <td>{{ published(v) }}</td>
           <td>
-            <a href="https://www.youtube.com/watch?v=vid" target="_blank"><i class="fas fa-video" title="Visit video" ></i></a>
-            <a href="https://www.youtube.com/channel/cid" target="_blank"><i class="far fa-smile" title="Visit channel"  ></i></a>
+            <a :href="yLink(v)" target="_blank"><i class="fas fa-video" title="Visit video" ></i></a>
+            <a :href="yChannelLink(v)" target="_blank"><i class="far fa-smile" title="Visit channel"  ></i></a>
           </td>
         </tr>
       </table>
@@ -41,8 +39,22 @@
 </template>
 
 <script>
+import moment from 'moment'
+import numeral from 'numeral'
 export default {
   props: ['results'],
+  methods: {
+    videoLink: (v) => ('/videos/' + v.id),
+    channelLink: (v) => ('/channels/' + v.channel_id),
+    published: (v) => moment(v.published_at).format('MMM \'YY'),
+    formatted: function(n) {
+      return numeral(n).format('0,0a')
+    },
+    yChannelLink: (v) => ("https://www.youtube.com/channel/" + v.channel_id),
+    yLink: function(v) {
+      return "https://www.youtube.com/watch?v=" + v.vid;
+    }    
+  }
 }
 </script>
 
