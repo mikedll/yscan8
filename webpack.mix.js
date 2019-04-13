@@ -13,9 +13,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css')
-   .webpackConfig({
-     plugins: [
-       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-     ]
+  .sass('resources/sass/app.scss', 'public/css')
+  .webpackConfig({
+    plugins: [
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    ]
   })
+  .sourceMaps();

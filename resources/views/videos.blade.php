@@ -44,6 +44,6 @@
     </div>
   </div>
 
-  <video-list v-bind:videos="videos"></video-list>
+  <video-list v-bind:results="results"></video-list>
 
 @endsection

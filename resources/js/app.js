@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     data: function() {
       return {
-        videos: (typeof __bootstrap !== 'undefined') ? __bootstrap : null
+        results: (typeof __bootstrap !== 'undefined') ? __bootstrap : null
       }
     }
   });
