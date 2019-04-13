@@ -20,3 +20,7 @@ mix.js('resources/js/app.js', 'public/js')
     ]
   })
   .sourceMaps();
+
+if (mix.config.inProduction) {
+    mix.minify();
+}
