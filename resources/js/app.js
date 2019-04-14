@@ -17,12 +17,13 @@ window.Vue = require('vue');
 
 import channelDisplay from './components/channel_display.vue';
 import videoList from './components/video_list.vue';
+import videoForm from './components/video_form.vue';
 
 document.addEventListener('DOMContentLoaded', function() {
   const app = new Vue({
     el: '#main-container',
     components: {
-      channelDisplay, videoList
+      channelDisplay, videoList, videoForm
     },
     data: function() {
       return {
