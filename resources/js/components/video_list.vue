@@ -39,10 +39,13 @@
           <li class="page-item" v-bind:class="{ disabled: !isPage(1)}">
             <span class="page-link">‹</span>
           </li>
-          <li v-for="i in nearPages" class="page-item" v-bind:class="{ active: isPage(i) }">
+          <li v-for="i in nearPages.leading" class="page-item">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
-          <li v-for="i in trailingPages" class="page-item" v-bind:class="{ active: isPage(i) }">
+          <li v-for="i in nearPages.near" class="page-item" v-bind:class="{ active: isPage(i) }">
+            <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+          </li>
+          <li v-for="i in nearPages.trailing" class="page-item">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
         </ul>
@@ -64,20 +67,6 @@ export default {
     }
   },
   computed: {
-    trailingPages: function() {
-      let padding = 8
-      let possibleNearPages = Math.min(padding, this.results.last_page)
-      let begin = Math.max(1, this.results.current_page - (possibleNearPages / 2))
-      let used = this.results.current_page - begin
-      let remaining = padding - used
-      let end = Math.min(this.results.last_page, this.results.current_page + remaining)
-
-      
-      let trailingPossible = 2
-      let trailing = Math.min(trailingPossible, this.results.last_page - end)
-      
-      return _.times(trailing, (i) => this.results.last_page - i).reverse()
-    },
     nearPages: function() {
       let evenPadding = 8
       let begin = Math.max(1, this.results.current_page - (evenPadding / 2))
@@ -88,7 +77,16 @@ export default {
       let newBegin = stillRemaining < 0 ? begin : Math.max(1, begin - stillRemaining)
       // invariant: end >= newBegin
       let pageLinksCount = end - newBegin + 1
-      return _.times(pageLinksCount, function(i) { return newBegin+i })
+
+      let trailLeadPossible = 2
+      let trailingCount = Math.min(trailLeadPossible, this.results.last_page - end)
+      let leadingCount = Math.min(trailLeadPossible, newBegin - 1)
+      
+      return {
+        leading: _.times(leadingCount, (i) => i+1),
+        near: _.times(pageLinksCount, function(i) { return newBegin+i }),
+        trailing: _.times(trailingCount, (i) => this.results.last_page - i).reverse()
+      }
     }
   },
   methods: {
