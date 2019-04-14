@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     data: function() {
       return {
-        results: (typeof __bootstrap !== 'undefined') ? __bootstrap : null
+        [location.pathname.startsWith("/channels/") ? 'videos' : 'results']: (typeof __bootstrap !== 'undefined') ? __bootstrap : null
       }
     }
   });
