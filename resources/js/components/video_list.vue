@@ -79,13 +79,16 @@ export default {
       return _.times(trailing, (i) => this.results.last_page - i).reverse()
     },
     nearPages: function() {
-      let padding = 8
-      let possibleNearPages = Math.min(padding, this.results.last_page)
-      let begin = Math.max(1, this.results.current_page - (possibleNearPages / 2))
+      let evenPadding = 8
+      let begin = Math.max(1, this.results.current_page - (evenPadding / 2))
       let used = this.results.current_page - begin
-      let remaining = padding - used
+      let remaining = evenPadding - used
       let end = Math.min(this.results.last_page, this.results.current_page + remaining)
-      return _.times(end - begin + 1, function(i) { return begin+i })
+      let stillRemaining = (this.results.current_page + remaining) - this.results.last_page
+      let newBegin = stillRemaining < 0 ? begin : Math.max(1, begin - stillRemaining)
+      // invariant: end >= newBegin
+      let pageLinksCount = end - newBegin + 1
+      return _.times(pageLinksCount, function(i) { return newBegin+i })
     }
   },
   methods: {
