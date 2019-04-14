@@ -33,23 +33,61 @@
           </td>
         </tr>
       </table>
+
+      <div class="row justify-content-center">
+        <ul role="navigation" class="pagination">
+          <li class="page-item" v-bind:class="{ disabled: !isPage(1)}">
+            <span class="page-link">‹</span>
+          </li>
+          <li v-for="i in nearPages" class="page-item" v-bind:class="{ active: isPage(i) }">
+            <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+          </li>
+          <li v-for="i in trailingPages" class="page-item" v-bind:class="{ active: isPage(i) }">
+            <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+          </li>
+        </ul>
+      </div>
       
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import moment from 'moment'
 import numeral from 'numeral'
 export default {
   props: ['results'],
+  data: function() {
+    return {
+      trailing: 0
+    }
+  },
+  computed: {
+    trailingPages: function() {
+      let possibleNearPages = Math.min(8, this.results.last_page)
+      let trailing = 0
+      if(this.results.last_page > possibleNearPages) {
+        trailing = Math.min(2, this.results.last_page - possibleNearPages)
+      }
+      return _.times(trailing, (i) => this.results.last_page - i).reverse()
+    },
+    nearPages: function() {
+      let possibleNearPages = Math.min(8, this.results.last_page)
+      return _.times(possibleNearPages, function(i) { return i+1 })
+    }
+  },
   methods: {
+    isPage: function(n) {
+      return this.results.current_page === n
+    },
     videoLink: (v) => ('/videos/' + v.id),
     channelLink: (v) => ('/channels/' + v.channel_id),
     published: (v) => moment(v.published_at).format('MMM \'YY'),
     formatted: function(n) {
       return numeral(n).format('0,0a')
     },
+    pageLink: (i) => '/?page=' + i,
     yChannelLink: (v) => ("https://www.youtube.com/channel/" + v.channel_id),
     yLink: function(v) {
       return "https://www.youtube.com/watch?v=" + v.vid;
