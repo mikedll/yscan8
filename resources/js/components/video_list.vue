@@ -42,11 +42,23 @@
           <li v-for="i in nearPages.leading" class="page-item">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
+          <li v-if="nearPages.leading.length > 0" class="page-item">
+            <span class="page-link">…</span>
+          </li>
+          
           <li v-for="i in nearPages.near" class="page-item" v-bind:class="{ active: isPage(i) }">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
+
+          <li v-if="nearPages.trailing.length > 0" class="page-item">
+            <span class="page-link">…</span>
+          </li>
+          
           <li v-for="i in nearPages.trailing" class="page-item">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+          </li>
+          <li class="page-item" v-bind:class="{ disabled: !isPage(results.last_page)}">
+            <span class="page-link">›</span>
           </li>
         </ul>
       </div>
