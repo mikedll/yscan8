@@ -87,13 +87,17 @@ export default {
       let end = Math.min(this.results.last_page, this.results.current_page + remaining)
       let stillRemaining = (this.results.current_page + remaining) - this.results.last_page
       let newBegin = stillRemaining < 0 ? begin : Math.max(1, begin - stillRemaining)
-      // invariant: end >= newBegin
-      let pageLinksCount = end - newBegin + 1
 
       let trailLeadPossible = 2
       let trailingCount = Math.min(trailLeadPossible, this.results.last_page - end)
       let leadingCount = Math.min(trailLeadPossible, newBegin - 1)
+
+      if(trailingCount > 0) end -= 1
+      if(leadingCount > 0) newBegin += 1
       
+      // invariant: end >= newBegin
+      let pageLinksCount = end - newBegin + 1
+
       return {
         leading: _.times(leadingCount, (i) => i+1),
         near: _.times(pageLinksCount, function(i) { return newBegin+i }),
