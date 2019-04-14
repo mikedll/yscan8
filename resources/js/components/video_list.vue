@@ -36,16 +36,16 @@
 
       <div class="row justify-content-center">
         <ul role="navigation" class="pagination">
-          <li class="page-item" v-bind:class="{ disabled: !isPage(1)}">
-            <span class="page-link">‹</span>
+          <li class="page-item" v-bind:class="{ disabled: isPage(1)}">
+            <span v-if="isPage(1)" class="page-link">‹</span>
+            <a v-else :href="pageLink(results.current_page - 1)" class="page-link">‹</a>
           </li>
           <li v-for="i in nearPages.leading" class="page-item">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
           <li v-if="nearPages.leading.length > 0" class="page-item">
             <span class="page-link">…</span>
-          </li>
-          
+          </li>          
           <li v-for="i in nearPages.near" class="page-item" v-bind:class="{ active: isPage(i) }">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
@@ -57,8 +57,9 @@
           <li v-for="i in nearPages.trailing" class="page-item">
             <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
           </li>
-          <li class="page-item" v-bind:class="{ disabled: !isPage(results.last_page)}">
-            <span class="page-link">›</span>
+          <li class="page-item" v-bind:class="{ disabled: isPage(results.last_page)}">
+            <span v-if="isPage(results.last_page)" class="page-link">›</span>
+            <a v-else :href="pageLink(results.current_page + 1)"  class="page-link">›</a>
           </li>
         </ul>
       </div>
@@ -73,11 +74,6 @@ import moment from 'moment'
 import numeral from 'numeral'
 export default {
   props: ['results'],
-  data: function() {
-    return {
-      trailing: 0
-    }
-  },
   computed: {
     nearPages: function() {
       let evenPadding = 8
@@ -92,6 +88,7 @@ export default {
       let trailingCount = Math.min(trailLeadPossible, this.results.last_page - end)
       let leadingCount = Math.min(trailLeadPossible, newBegin - 1)
 
+      // Cut down on links in middle if we're going to have trailing or leading sections.
       if(trailingCount > 0) end -= 1
       if(leadingCount > 0) newBegin += 1
       
