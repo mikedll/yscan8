@@ -65,16 +65,27 @@ export default {
   },
   computed: {
     trailingPages: function() {
-      let possibleNearPages = Math.min(8, this.results.last_page)
-      let trailing = 0
-      if(this.results.last_page > possibleNearPages) {
-        trailing = Math.min(2, this.results.last_page - possibleNearPages)
-      }
+      let padding = 8
+      let possibleNearPages = Math.min(padding, this.results.last_page)
+      let begin = Math.max(1, this.results.current_page - (possibleNearPages / 2))
+      let used = this.results.current_page - begin
+      let remaining = padding - used
+      let end = Math.min(this.results.last_page, this.results.current_page + remaining)
+
+      
+      let trailingPossible = 2
+      let trailing = Math.min(trailingPossible, this.results.last_page - end)
+      
       return _.times(trailing, (i) => this.results.last_page - i).reverse()
     },
     nearPages: function() {
-      let possibleNearPages = Math.min(8, this.results.last_page)
-      return _.times(possibleNearPages, function(i) { return i+1 })
+      let padding = 8
+      let possibleNearPages = Math.min(padding, this.results.last_page)
+      let begin = Math.max(1, this.results.current_page - (possibleNearPages / 2))
+      let used = this.results.current_page - begin
+      let remaining = padding - used
+      let end = Math.min(this.results.last_page, this.results.current_page + remaining)
+      return _.times(end - begin + 1, function(i) { return begin+i })
     }
   },
   methods: {
