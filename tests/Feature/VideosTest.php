@@ -40,7 +40,7 @@ class VideosTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJson([
-                'id' => 1
+                'id' => 2
             ]);
         
         $response = $this->json('POST', '/videos', [
@@ -50,7 +50,7 @@ class VideosTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'id' => 1
+                'id' => 2
             ]);
     }
     

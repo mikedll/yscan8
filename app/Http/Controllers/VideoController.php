@@ -55,11 +55,9 @@ class VideoController extends Controller
             $video->refreshStatistics();
             return response()->json($video, 200);
         }
-        echo "\n------------\n";
         
         $video = new Video(['vid' => $videoId]);
         $video = $video->refreshStatistics();
-        echo "\n------2------\n";
 
         if($video === null) {
             return response(500);
