@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     data: function() {
       return {
-        [location.pathname.startsWith("/channels/") ? 'videos' : 'results']: (typeof __bootstrap !== 'undefined') ? __bootstrap : null
+        [location.pathname.startsWith("/channels/") ? 'videos' : 'results']: (typeof __bootstrap !== 'undefined') ? __bootstrap : null,
+        location: location,
+        jQuery: jQuery
       }
     }
   });

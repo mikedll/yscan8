@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <video-form></video-form>
+  <video-form v-bind:location="location" v-bind:$="jQuery"></video-form>
   <video-list v-bind:results="results"></video-list>
 
 @endsection
