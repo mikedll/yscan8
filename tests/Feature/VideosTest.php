@@ -12,7 +12,7 @@ class VideosTest extends TestCase
     public function testCanCreateVideo()
     {
         $response = $this->json('POST', '/videos', [
-            'link' => 'https://www.youtube.com/watch?v=AEF9ak24z8s'
+            'video' => 'https://www.youtube.com/watch?v=AEF9ak24z8s'
         ]);
 
         $response
@@ -22,10 +22,19 @@ class VideosTest extends TestCase
             ]);
     }
 
+    public function testFailsForNonYoutubeVideos() {
+        $response = $this->json('POST', '/videos', [
+            'video' => 'https://www.google.com/somelink'
+        ]);
+
+        $response
+            ->assertStatus(422);
+    }
+    
     public function testDoesNotDuplicateVideos()
     {
         $response = $this->json('POST', '/videos', [
-            'link' => 'https://www.youtube.com/watch?v=AEF9ak24z8s'
+            'video' => 'https://www.youtube.com/watch?v=AEF9ak24z8s'
         ]);
 
         $response
@@ -35,7 +44,7 @@ class VideosTest extends TestCase
             ]);
         
         $response = $this->json('POST', '/videos', [
-            'link' => 'https://www.youtube.com/watch?v=AEF9ak24z8s'
+            'video' => 'https://www.youtube.com/watch?v=AEF9ak24z8s'
         ]);
 
         $response

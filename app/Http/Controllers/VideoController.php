@@ -44,28 +44,28 @@ class VideoController extends Controller
             $videoId = Youtube::parseVidFromURL($request->input('video'));
         } catch(Exception $e) {
             if ($e->getMessage() === 'The supplied URL does not look like a Youtube URL') {
-                $request->session()->flash('error', "It looks like you didn't enter a YouTube URL.");
-                return redirect(route('root'));
+                return response()->json(null, 422);
             }
             else
                 throw $e;
         }
-
+        
         $video = Video::where('vid', '=', $videoId)->first();
         if($video !== null) {
-            $request->session()->flash('message', 'Video is already in the database. Refreshed its statistics.');
-        } else {
-            $video = new Video(['vid' => $videoId]);
+            $video->refreshStatistics();
+            return response()->json($video, 200);
         }
-
+        echo "\n------------\n";
+        
+        $video = new Video(['vid' => $videoId]);
         $video = $video->refreshStatistics();
+        echo "\n------2------\n";
 
         if($video === null) {
-            $request->session()->flash('error', 'Unable to save video.');
-            return redirect(route('root'));
-        }
-
-        return redirect(route('videos.show', ['video' => $video]));
+            return response(500);
+        }        
+        
+        return response()->json($video, 201);
     }
     
     /**

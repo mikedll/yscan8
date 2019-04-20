@@ -12,6 +12,15 @@ Copy .env.example to .env and fill in an app key.
 
 Fill in a YouTube key (manually).
 
+## Testing
+
+Copy `.env.testing.example` to `.env.testing` and fill in a youtube key
+here, too.
+
+Then you can run the feature and unit tests:
+
+     vendor/bin/phpunit
+
 ## Serve the App Locally
      
      npm run dev
