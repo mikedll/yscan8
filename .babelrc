@@ -1,0 +1,21 @@
+{
+  "presets": [
+    [          
+      "@babel/env",
+      {
+        "modules": false,
+        "forceAllTransforms": true,
+        "targets": {
+          "browsers": "> 1%"
+        },
+        "useBuiltIns": "entry",
+        "corejs": 3
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": [["@babel/env", {"targets": {"node": "current"} }]]
+    }
+  }
+}

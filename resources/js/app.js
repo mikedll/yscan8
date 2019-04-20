@@ -15,9 +15,9 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import channelDisplay from './components/channel_display.vue';
-import videoList from './components/video_list.vue';
-import videoForm from './components/video_form.vue';
+import channelDisplay from './components/ChannelDisplay.vue';
+import videoList from './components/VideoList.vue';
+import videoForm from './components/VideoForm.vue';
 
 document.addEventListener('DOMContentLoaded', function() {
   const app = new Vue({
