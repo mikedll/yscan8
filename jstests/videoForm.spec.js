@@ -3,7 +3,7 @@ import VideoForm from '../resources/js/components/VideoForm.vue'
 
 describe('VideoForm', () => {
   test('calls server to make video on form submit', () => {
-    let mock$ = function(q) {}
+    let mock$ = function(q) { return { attr: () => '' } }
     
     let passedParams = null;
     let called = false
@@ -12,7 +12,6 @@ describe('VideoForm', () => {
       passedParams = options
     }
     let mockLocation = {}
-
     
     const wrapper = mount(VideoForm, { propsData: {$: mock$, location: mockLocation} })
     wrapper.find('form').trigger('submit')
@@ -25,6 +24,6 @@ describe('VideoForm', () => {
     }
 
     passedParams.success(mockSuccessData)
-    expect(mockLocation.path).toBe('/videos/3')
+    expect(mockLocation.pathname).toBe('/videos/3')
   })
 })

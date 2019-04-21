@@ -17,7 +17,6 @@ export default {
       required: true,
     },
     location: {
-      type: Location,
       required: true
     }
   },
@@ -25,7 +24,7 @@ export default {
     return { newVideo: '', csrfToken: '' }
   },
   mounted: function() {
-    this.csrfToken = $('meta[name=csrf-token]').attr('content')
+    this.csrfToken = this.$('meta[name=csrf-token]').attr('content')
   },
   methods: {
     onSubmit: function(e) {
@@ -37,7 +36,7 @@ export default {
           _token: this.csrfToken
         },
         success: (data) => {
-          this.location.path = '/videos/' + data.id
+          this.location.pathname = '/videos/' + data.id
         }
       })      
     }

@@ -27,12 +27,11 @@
       <br/>
       <strong>Like-to-dislike ratio</strong>: {{ formattedDec(video.likes / video.dislikes) }}
       <br/>
-      <strong>Calculation</strong>: log_10({{ formatted(video.views) }}) * {{ formattedDec(video.likes / video.dislikes) }}
+      <strong>Calculation</strong>: log_10({{ video.views }}) * {{ formattedDec(video.likes / video.dislikes) }}
       <a target="_blank" :href="gQuery()">See calculation on <i class="fab fa-google" ></i> Google</a>.
       <br/>
       <strong>Score</strong>: {{ video.score }}
       
-
       <br/>
       <br/>
       <a href="/">Video List</a>
