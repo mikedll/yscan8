@@ -6,33 +6,31 @@
 
       <h3>{{ video.title }} <a :href="vLink()" target="_blank"><i class="fab fa-youtube" title="Visit video" ></i></a></h3>
 
-        <div v-if="false" class="alert alert-info">
-          
+        <div v-if="false" class="alert alert-info">          
         </div>
       
-        <div v-if="false"  class="alert alert-danger">
-          
+        <div v-if="false"  class="alert alert-danger">          
         </div>
 
       <br/>
 
-      <strong>Video Owner</strong>: <a href="{{ route('channels.show', ['channel' => $video->channel_id]) }}">{{ $video->owner }}</a>
-      <a href="https://www.youtube.com/channel/{!! $video->channel_id !!}" target="_blank"><i class="fab fa-youtube" title="Visit channel"  ></i></a>
+      <strong>Video Owner</strong>: <a :href="channelLink()">{{ video.owner }}</a>
+      <a :href="yChannelLink()" target="_blank"><i class="fab fa-youtube" title="Visit channel"></i></a>
       <br/>
       <br/>
 
-      <strong>Views</strong>: {{ number_format($video->views) }}
+      <strong>Views</strong>: {{ formatted(video.views) }}
       <br/>
-      <strong>Likes</strong>: {{ number_format($video->likes) }}
+      <strong>Likes</strong>: {{ formatted(video.likes) }}
       <br/>
-      <strong>Dislikes</strong>: {{ number_format($video->dislikes) }}
+      <strong>Dislikes</strong>: {{ formatted(video.dislikes) }}
       <br/>
-      <strong>Like-to-dislike ratio</strong>: {{ number_format($video->likes / $video->dislikes, 2) }}
+      <strong>Like-to-dislike ratio</strong>: {{ formattedDec(video.likes / video.dislikes) }}
       <br/>
-      <strong>Calculation</strong>: log_10({{ number_format($video->views) }}) * {{ number_format($video->likes / $video->dislikes, 2) }}
-      <a target="_blank" href="http://www.google.com/search?q={{ urlencode('log_10(' . $video->views . ') * (' . $video->likes . ' / ' . $video->dislikes . ')') }}">See calculation on <i class="fab fa-google" ></i> Google</a>.
+      <strong>Calculation</strong>: log_10({{ formatted(video.views) }}) * {{ formattedDec(video.likes / video.dislikes) }}
+      <a target="_blank" :href="gQuery()">See calculation on <i class="fab fa-google" ></i> Google</a>.
       <br/>
-      <strong>Score</strong>: {{ $video->score }}
+      <strong>Score</strong>: {{ video.score }}
       
 
       <br/>
@@ -44,13 +42,29 @@
 
 </template>
 
-<script>
+<script>  
+import numeral from 'numeral'
+
 export default {
   props: {
     video: Object
   },
   methods: {
-    vLink: function() { return "https://www.youtube.com/watch?v=" + this.video.vid }
+    vLink: function() { return "https://www.youtube.com/watch?v=" + this.video.vid },
+    channelLink: function(v) { return '/channels/' + this.video.channel_id },
+    yChannelLink: function(v) { return 'https://www.youtube.com/channel/' + this.video.channel_id },
+    yLink: function(v) { return "https://www.youtube.com/watch?v=" + this.video.vid },
+    formatted: function(n) {
+      return numeral(n).format('0,0a')
+    },
+    formattedDec: function(n) {
+      return numeral(n).format('0,0.00')
+    },
+    gQuery: function() {
+      const s = 'log_10(' + this.video.views + ') * (' + this.video.likes + ' / ' + this.video.dislikes + ')'
+      return 'http://www.google.com/search?q=' + encodeURI(s);
+    }
+
   }
 }
 </script>

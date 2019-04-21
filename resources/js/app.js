@@ -18,19 +18,31 @@ window.Vue = require('vue');
 import channelDisplay from './components/ChannelDisplay.vue';
 import videoList from './components/VideoList.vue';
 import videoForm from './components/VideoForm.vue';
+import videoSummary from './components/VideoSummary.vue';
 
 document.addEventListener('DOMContentLoaded', function() {
   const app = new Vue({
     el: '#main-container',
     components: {
-      channelDisplay, videoList, videoForm
+      channelDisplay, videoList, videoForm, videoSummary
     },
     data: function() {
-      return {
-        [location.pathname.startsWith("/channels/") ? 'videos' : 'results']: (typeof __bootstrap !== 'undefined') ? __bootstrap : null,
+      let ret = {
         location: location,
         jQuery: jQuery
       }
+
+      const initialLoad = (typeof __bootstrap !== 'undefined') ? __bootstrap : null
+      const videosRegexp = new RegExp(/videos\/\d+/)
+      if(location.pathname.startsWith("/channels/")) {
+        ret['videos'] = initialLoad
+      } else if(videosRegexp.test(location.pathname)) {
+        ret['video'] = initialLoad
+      } else {
+        ret['results'] = initialLoad
+      }
+
+      return ret
     }
   });
 });

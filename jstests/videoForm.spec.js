@@ -3,7 +3,8 @@ import VideoForm from '../resources/js/components/VideoForm.vue'
 
 describe('VideoForm', () => {
   test('calls server to make video on form submit', () => {
-    let mock$ = {}
+    let mock$ = function(q) {}
+    
     let passedParams = null;
     let called = false
     mock$.ajax = function(options) {
