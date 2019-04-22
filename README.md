@@ -1,6 +1,6 @@
 
 
-## Depedencies and dev Installation
+## Dependencies and Development Installation
 
 
      composer install
@@ -10,18 +10,17 @@ Copy .env.example to .env and fill in an app key.
 
     php artisan key:generate
 
-Fill in a YouTube key (manually).
+Fill in a YouTube key (manually, after creating it with Google).
 
-## Testing
-
-Copy `.env.testing.example` to `.env.testing` and fill in a youtube key
-here, too.
-
-Then you can run the feature and unit tests:
+Run the feature and unit tests with php:
 
      vendor/bin/phpunit
 
-## Serve the App Locally
+Run the Vue tests:
+
+     npm run jstest
+
+Serve the App Locally
      
      npm run dev
      php artisan serve

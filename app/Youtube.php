@@ -17,4 +17,10 @@ class Youtube
     {
         return $this->vendorYoutube::parseVidFromURL($ytUrl);
     }
+
+    public function getVideoInfo($vid)
+    {
+        return $this->vendorYoutube::getVideoInfo($vid);
+    }
+    
 }

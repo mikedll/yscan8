@@ -17,5 +17,3 @@ yarn-error.log
 .phpunit.result.cache
 tmp/*
 !tmp/.keep
-
-.env.testing

@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Alaouy\Youtube\Facades\Youtube;
+use App\Youtube;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
@@ -26,7 +26,9 @@ class Video extends Model
 
     public function refreshStatistics()
     {
-        $videoInfo = Youtube::getVideoInfo($this->vid);
+        $youtube = resolve(Youtube::class);
+        
+        $videoInfo = $youtube->getVideoInfo($this->vid);
         if($videoInfo === false) {
             return;
         }
