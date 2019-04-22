@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Video;
+use App\Youtube as Youtube;
 
 class VideosTest extends TestCase
 {
@@ -23,6 +24,15 @@ class VideosTest extends TestCase
     
     public function testCanCreateVideo()
     {
+        $this->app->singleton(Youtube::class, function() {
+            $ytServiceMock = $this->createMock(Youtube::class);
+            $ytServiceMock->expects($this->any())
+                ->method('parseVidFromURL')
+                ->will($this->returnValue('MpeaSNERwQA'));
+            
+            return $ytServiceMock;
+        });
+        
         $response = $this->json('POST', '/videos', [
             'video' => 'https://www.youtube.com/watch?v=MpeaSNERwQA'
         ]);
@@ -30,6 +40,7 @@ class VideosTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJson([
+                'vid' => 'MpeaSNERwQA',
                 'id' => 2
             ]);
     }

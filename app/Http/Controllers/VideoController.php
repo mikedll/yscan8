@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Exception;
-use Alaouy\Youtube\Facades\Youtube;
+use App\Youtube as Youtube;
 use App\Video;
 
 class VideoController extends Controller
@@ -37,11 +37,11 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Youtube $appYoutube)
     {
         $videoId = null;        
         try {
-            $videoId = Youtube::parseVidFromURL($request->input('video'));
+            $videoId = $appYoutube->parseVidFromURL($request->input('video'));
         } catch(Exception $e) {
             if ($e->getMessage() === 'The supplied URL does not look like a Youtube URL') {
                 return response()->json(null, 422);
@@ -60,7 +60,7 @@ class VideoController extends Controller
         $video = $video->refreshStatistics();
 
         if($video === null) {
-            return response(500);
+            return response()->json(['error' => 'Could not save video'], 500);
         }        
         
         return response()->json($video, 201);
