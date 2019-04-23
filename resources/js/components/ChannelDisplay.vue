@@ -63,6 +63,7 @@ export default {
   },
   mounted: function() {
     if(this.videos === null || (this.videos.length > 0 && this.videos[0].channel_id != this.id)) {
+      this.videos = null
       this.$.ajax({
         method: 'GET',
         url: '/channels/' + this.id,
