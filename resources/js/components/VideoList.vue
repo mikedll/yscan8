@@ -122,10 +122,13 @@ export default {
     checkCorrectPage: function() {
       if(this.loading) return false
 
-      if(this.results !== null && this.results.current_page === Number(this.page)) return true
+      if(this.results !== null && this.results.current_page === this.loadedPage) return true
 
       this.reload()
       return false
+    },
+    loadedPage: function() {
+      return this.page ? Number(this.page) : 1
     }
   },
   methods: {
@@ -138,7 +141,7 @@ export default {
         url: '/',
         dataType: 'JSON',
         data: {
-          page: this.page ? this.page : 1
+          page: this.loadedPage
         },
         success: (data) => {
           this.loading = false
