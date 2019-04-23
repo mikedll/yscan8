@@ -25,7 +25,7 @@
           <td>{{ formatted(v.dislikes) }}</td>
           <td>{{ v.score }}</td>
           <td><router-link :to="videoLink(v)">{{ v.title }}</router-link></td>
-          <td><a :href="channelLink(v)">{{ v.owner }}</a></td>
+          <td><router-link :to="channelLink(v)">{{ v.owner }}</router-link></td>
           <td>{{ published(v) }}</td>
           <td>
             <a :href="yLink(v)" target="_blank"><i class="fas fa-video" title="Visit video" ></i></a>

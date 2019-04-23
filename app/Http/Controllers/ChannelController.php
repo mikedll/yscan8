@@ -7,10 +7,10 @@ use App\Video;
 
 class ChannelController extends Controller
 {
-    public function show($channel_id)
+    public function show(Request $request, $channel_id)
     {
         $videos = Video::where('channel_id', $channel_id)->orderBy('score', 'desc')->get();
-        return view('channel', ['videos' => $videos]);
+        return $request->wantsJson() ? response()->json($videos) : view('channel', ['videos' => $videos]);
     }
        
 }

@@ -15,7 +15,7 @@
 
         <br/>
 
-        <strong>Video Owner</strong>: <a :href="channelLink()">{{ video.owner }}</a>
+        <strong>Video Owner</strong>: <router-link :to="channelLink()">{{ video.owner }}</router-link>
         <a :href="yChannelLink()" target="_blank"><i class="fab fa-youtube" title="Visit channel"></i></a>
         <br/>
         <br/>
@@ -63,7 +63,7 @@ export default {
   },
   mounted: function() {
     if(this.video === null) {
-      $.ajax({
+      this.$.ajax({
         method: 'GET',
         url: '/videos/' + this.id,
         dataType: 'JSON',

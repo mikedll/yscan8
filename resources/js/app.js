@@ -78,10 +78,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } },
       { path: '/channels/:id', component: channelDisplay, props: (route) => {
-        return { videos: propsLoader()['videos'], ...route.query }
+        return {
+          initialLoad: propsLoader()['videos'],
+          $: propsLoader()['jQuery'],
+          ...route.params
+        }
       } },
       { path: '/videos/:id', component: videoSummary, props: (route) => {
-        return { initialLoad: propsLoader()['video'], ...route.params }
+        return {
+          initialLoad: propsLoader()['video'],
+          $: propsLoader()['jQuery'],
+          ...route.params
+        }
       } },
     ]
   })
