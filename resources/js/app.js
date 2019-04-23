@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  template: `
     <div class="row" >
       <div class="col" >
-        <h3>YouTube Video Fervor Calculator</h3>    
+        <h3>YouTube Video Affection Calculator</h3>    
 
         <p>
             This website calculates enthusiasm for a YouTube video.
