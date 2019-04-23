@@ -52,7 +52,7 @@ import moment from 'moment';
 
 export default {
   props: {
-    'initialLoad': Object,
+    'initialLoad': Array,
     '$': Function,
     'id': String    
   },
@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted: function() {
-    if(this.videos === null) {
+    if(this.videos === null || (this.videos.length > 0 && this.videos[0].channel_id != this.id)) {
       this.$.ajax({
         method: 'GET',
         url: '/channels/' + this.id,
