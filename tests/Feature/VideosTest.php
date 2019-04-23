@@ -50,10 +50,11 @@ class VideosTest extends TestCase
         $video = new Video(['vid' => 'MpeaSNERwQA']);
         $video = $video->refreshStatistics();
         
+        $createdId = Video::max('id');
         $response = $this->get('/videos/' . $video->id);
         $response
             ->assertStatus(200)
-            ->assertSee('<video-summary v-bind:video="video"></video-summary>');
+            ->assertSee('__bootstrap = {"id":' . $createdId);
     }
     
     public function testCanCreateVideo()
@@ -63,12 +64,12 @@ class VideosTest extends TestCase
             'video' => 'https://www.youtube.com/watch?v=MpeaSNERwQA'
         ]);
 
-        $createdid = Video::max('id');
+        $createdId = Video::max('id');
         $response
             ->assertStatus(201)
             ->assertJson([
                 'vid' => 'MpeaSNERwQA',
-                'id' => $createdid
+                'id' => $createdId
             ]);
     }
 
@@ -89,12 +90,12 @@ class VideosTest extends TestCase
             'video' => 'https://www.youtube.com/watch?v=MpeaSNERwQA'
         ]);
 
-        $createdid = Video::max('id');
+        $createdId = Video::max('id');
         
         $response
             ->assertStatus(201)
             ->assertJson([
-                'id' => $createdid
+                'id' => $createdId
             ]);
         
         
@@ -105,7 +106,7 @@ class VideosTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'id' => $createdid
+                'id' => $createdId
             ]);
     }
     
