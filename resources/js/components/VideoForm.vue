@@ -15,9 +15,6 @@ export default {
     $: {
       type: Function,
       required: true,
-    },
-    location: {
-      required: true
     }
   },
   data: function() {
@@ -36,7 +33,7 @@ export default {
           _token: this.csrfToken
         },
         success: (data) => {
-          this.location.pathname = '/videos/' + data.id
+          this.$router.push({path: '/videos/' + data.id})
         }
       })      
     }
