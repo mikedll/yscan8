@@ -35,13 +35,13 @@
       <br/>
       <br/>
       <a href="/">Video List</a>
-      
+     
     </div>
   </div>    
 
 </template>
 
-<script>  
+<script>
 import numeral from 'numeral'
 
 export default {
@@ -67,3 +67,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

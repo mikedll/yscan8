@@ -24,7 +24,7 @@
           <td>{{ formatted(v.likes) }} </td>
           <td>{{ formatted(v.dislikes) }}</td>
           <td>{{ v.score }}</td>
-          <td><a :href="videoLink(v)">{{ v.title }}</a></td>
+          <td><router-link :to="videoLink(v)">{{ v.title }}</router-link></td>
           <td><a :href="channelLink(v)">{{ v.owner }}</a></td>
           <td>{{ published(v) }}</td>
           <td>
