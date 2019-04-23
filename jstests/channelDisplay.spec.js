@@ -1,5 +1,6 @@
 
 import { mount, createLocalVue } from '@vue/test-utils'
+import sinon from 'sinon'
 import VueRouter from 'vue-router'
 import ChannelDisplay from '../resources/js/components/ChannelDisplay.vue'
 
@@ -25,12 +26,10 @@ describe('ChannelDisplay', () => {
   test('looks for data if id does not match first video channel_id', () => {
     let initialLoad = [{'channel_id': 'WRONGID', likes: 30, dislikes: 1, views: 300 }]
 
-    let passedParams, called = false, mock$ = () => {}
-    mock$.ajax = (params) => { called = true, passedParams = params }
-    let wrapper = mount(ChannelDisplay, { localVue, router, propsData: { id: 'REQUESTEDID', $: mock$, initialLoad } })
-
-    expect(called).toBeTruthy()
-    expect(passedParams.url).toBe('/channels/REQUESTEDID')
+    let $ = sinon.fake()
+    $.ajax = sinon.fake()
+    let wrapper = mount(ChannelDisplay, { localVue, router, propsData: { id: 'REQUESTEDID', $, initialLoad } })
+    expect($.ajax.calledWithMatch({url: '/channels/REQUESTEDID'})).toBeTruthy()
   })
   
 })

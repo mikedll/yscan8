@@ -1,3 +1,4 @@
+import sinon from 'sinon'
 import { mount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import VideoForm from '../resources/js/components/VideoForm.vue'
@@ -12,26 +13,15 @@ describe('VideoForm', () => {
   })
              
   test('calls server to make video on form submit', () => {
-    let mock$ = function(q) { return { attr: () => '' } }
+    let $ = sinon.fake.returns({ attr: sinon.fake.returns('') })
+    $.ajax = sinon.fake()
     
-    let passedParams = null;
-    let called = false
-    mock$.ajax = function(options) {
-      called = true
-      passedParams = options
-    }
-    
-    const wrapper = mount(VideoForm, { localVue, router, propsData: {$: mock$} })
+    const wrapper = mount(VideoForm, { localVue, router, propsData: {$} })
     wrapper.find('form').trigger('submit')
-    expect(called).toBeTruthy()
-    expect(passedParams.method).toBe('POST')
-    expect(passedParams.success).toBeDefined()
+    expect($.ajax.calledWithMatch({method: 'POST', url: '/videos'})).toBeTruthy()
+    expect($.ajax.getCall(0).args[0].success).toBeDefined()
 
-    let mockSuccessData = {
-      id: 3
-    }
-
-    passedParams.success(mockSuccessData)
+    $.ajax.getCall(0).args[0].success({id: "3"})
     expect(wrapper.vm.$route.path).toBe('/videos/3')
   })
 })
