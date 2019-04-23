@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <div v-if="results">
+    <div v-if="checkCorrectPage">
       <table class="table">
         <thead>
           <tr>
@@ -38,16 +38,16 @@
         <ul role="navigation" class="pagination">
           <li class="page-item" v-bind:class="{ disabled: isPage(1)}">
             <span v-if="isPage(1)" class="page-link">‹</span>
-            <a v-else :href="pageLink(results.current_page - 1)" class="page-link">‹</a>
+            <router-link v-else :to="pageLink(results.current_page - 1)" class="page-link">‹</router-link>
           </li>
           <li v-for="i in nearPages.leading" class="page-item">
-            <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+            <router-link :to="pageLink(i)"  class="page-link">{{ i }}</router-link>
           </li>
           <li v-if="nearPages.leading.length > 0" class="page-item">
             <span class="page-link">…</span>
           </li>          
           <li v-for="i in nearPages.near" class="page-item" v-bind:class="{ active: isPage(i) }">
-            <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+            <router-link :to="pageLink(i)"  class="page-link">{{ i }}</router-link>
           </li>
 
           <li v-if="nearPages.trailing.length > 0" class="page-item">
@@ -55,11 +55,11 @@
           </li>
           
           <li v-for="i in nearPages.trailing" class="page-item">
-            <a :href="pageLink(i)"  class="page-link">{{ i }}</a>
+            <router-link :to="pageLink(i)"  class="page-link">{{ i }}</router-link>
           </li>
           <li class="page-item" v-bind:class="{ disabled: isPage(results.last_page)}">
             <span v-if="isPage(results.last_page)" class="page-link">›</span>
-            <a v-else :href="pageLink(results.current_page + 1)"  class="page-link">›</a>
+            <router-link v-else :to="pageLink(results.current_page + 1)"  class="page-link">›</router-link>
           </li>
         </ul>
       </div>
@@ -78,27 +78,18 @@ import numeral from 'numeral'
 export default {
   props: {
     'initialLoad': Object,
-    'page': Object,
+    'page': String,
     '$': Function
   },
   data: function() {
     return {
+      loading: false,
       results: this.initialLoad ? this.initialLoad : null
     }
   },
   mounted: function() {
     if(this.results === null) {
-      $.ajax({
-        method: 'GET',
-        url: '/',
-        dataType: 'JSON',
-        data: {
-          page: this.page ? this.page : 1
-        },
-        success: (data) => {
-          this.results = data
-        }
-      })
+      this.reload()
     }
   },
   computed: {
@@ -127,9 +118,34 @@ export default {
         near: _.times(pageLinksCount, function(i) { return newBegin+i }),
         trailing: _.times(trailingCount, (i) => this.results.last_page - i).reverse()
       }
+    },
+    checkCorrectPage: function() {
+      if(this.loading) return false
+
+      if(this.results !== null && this.results.current_page === Number(this.page)) return true
+
+      this.reload()
+      return false
     }
   },
   methods: {
+    reload: function() {
+      this.results = null
+      this.loading = true
+
+      $.ajax({
+        method: 'GET',
+        url: '/',
+        dataType: 'JSON',
+        data: {
+          page: this.page ? this.page : 1
+        },
+        success: (data) => {
+          this.loading = false
+          this.results = data
+        }
+      })      
+    },
     isPage: function(n) {
       return this.results.current_page === n
     },
