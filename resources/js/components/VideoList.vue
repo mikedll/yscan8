@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <div>
+    <div v-if="results">
       <table class="table">
         <thead>
           <tr>
@@ -65,6 +65,9 @@
       </div>
       
     </div>
+    <div v-else>
+      Loading...
+    </div>
   </div>
 </template>
 
@@ -73,7 +76,31 @@ import _ from 'lodash'
 import moment from 'moment'
 import numeral from 'numeral'
 export default {
-  props: ['results'],
+  props: {
+    'initialLoad': Object,
+    'page': Object,
+    '$': Function
+  },
+  data: function() {
+    return {
+      results: this.initialLoad ? this.initialLoad : null
+    }
+  },
+  mounted: function() {
+    if(this.results === null) {
+      $.ajax({
+        method: 'GET',
+        url: '/',
+        dataType: 'JSON',
+        data: {
+          page: this.page ? this.page : 1
+        },
+        success: (data) => {
+          this.results = data
+        }
+      })
+    }
+  },
   computed: {
     nearPages: function() {
       let evenPadding = 8

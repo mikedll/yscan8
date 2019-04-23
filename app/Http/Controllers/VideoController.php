@@ -15,10 +15,14 @@ class VideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $videos = Video::orderBy('score', 'desc')->paginate(12);
-        return view('videos', ['videos' => $videos]);
+        if($request->wantsJson()) {
+            return response()->json($videos);
+        } else {
+            return view('videos', ['videos' => $videos]);
+        }
     }
 
     /**

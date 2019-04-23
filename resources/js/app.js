@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return rootProps
   }
 
-  const Home = { props: ["location", "jQuery", "results"],
+  const Home = { props: ["location", "jQuery", "results", "page"],
                  template: `
     <div class="row" >
       <div class="col" >
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </p>
 
         <video-form v-bind:$="jQuery" v-bind:location="location"></video-form>
-        <video-list v-bind:results="results"></video-list>
+        <video-list v-bind:$="jQuery" v-bind:page="page" v-bind:initialLoad="results"></video-list>
       </div>
     </div>
   `}
@@ -71,16 +71,19 @@ document.addEventListener('DOMContentLoaded', function() {
     mode: 'history',
     base: __dirname,
     routes: [
-      { path: '/', component: Home, props: {
-        location: propsLoader()['location'],
-        results: propsLoader()['results'],
-        jQuery: propsLoader()['jQuery']
+      { path: '/', component: Home, props: (route) => {
+        return {
+          location: propsLoader()['location'],
+          results: propsLoader()['results'],
+          jQuery: propsLoader()['jQuery'],
+          ...route.query
+        }
       } },
-      { path: '/channels/:id', component: channelDisplay, props: {
-        videos: propsLoader()['videos']
+      { path: '/channels/:id', component: channelDisplay, props: (route) => {
+        return { videos: propsLoader()['videos'], ...route.query }
       } },
       { path: '/videos/:id', component: videoSummary, props: (route) => {
-        return { video: propsLoader()['video'], ...route.params }
+        return { initialLoad: propsLoader()['video'], ...route.params }
       } },
     ]
   })
