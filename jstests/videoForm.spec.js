@@ -1,7 +1,16 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueRouter from 'vue-router'
 import VideoForm from '../resources/js/components/VideoForm.vue'
 
 describe('VideoForm', () => {
+  let localVue, router
+
+  beforeEach(() => {
+    localVue = createLocalVue()
+    localVue.use(VueRouter)
+    router = new VueRouter()
+  })
+             
   test('calls server to make video on form submit', () => {
     let mock$ = function(q) { return { attr: () => '' } }
     
@@ -11,9 +20,8 @@ describe('VideoForm', () => {
       called = true
       passedParams = options
     }
-    let mockLocation = {}
     
-    const wrapper = mount(VideoForm, { propsData: {$: mock$, location: mockLocation} })
+    const wrapper = mount(VideoForm, { localVue, router, propsData: {$: mock$} })
     wrapper.find('form').trigger('submit')
     expect(called).toBeTruthy()
     expect(passedParams.method).toBe('POST')
@@ -24,6 +32,6 @@ describe('VideoForm', () => {
     }
 
     passedParams.success(mockSuccessData)
-    expect(mockLocation.pathname).toBe('/videos/3')
+    expect(wrapper.vm.$route.path).toBe('/videos/3')
   })
 })
