@@ -35,7 +35,11 @@
 
         <br/>
         <br/>
-        <a href="/">Video List</a>
+        <router-link to="/">Video List</router-link>
+      </div>
+      
+      <div v-else>
+        Loading...
       </div>
      
     </div>
