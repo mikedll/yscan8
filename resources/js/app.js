@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
       { path: '/channels/:id', component: channelDisplay, props: {
         videos: propsLoader()['videos']
       } },
-      { path: '/videos/:id', component: videoSummary, props: {
-        video: propsLoader()['video']
+      { path: '/videos/:id', component: videoSummary, props: (route) => {
+        return { video: propsLoader()['video'], ...route.params }
       } },
     ]
   })
