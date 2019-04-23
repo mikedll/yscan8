@@ -77,7 +77,7 @@ That takes about twelve minutes.
 
     - Laravel 5.7.8
     - Vue 2.5.17
-    - Webpack 3.12.0
+    - Webpack 4.30
     
 ### Credits
 
