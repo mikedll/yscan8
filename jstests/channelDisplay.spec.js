@@ -13,6 +13,9 @@ describe('ChannelDisplay', () => {
     localVue.use(VueRouter)
     router = new VueRouter()
   })
+
+  test('renders links to youtube video and channel', () => {
+  })
   
   test('render video deck for each video', () => {
     let initialLoad = [{'channel_id': 'Unldf4', likes: 30, dislikes: 1, views: 300 }]

@@ -3,7 +3,7 @@
   <div class="row">
 
     <div class="col" >
-
+      
       <div v-if="video">
         <h3>{{ video.title }} <a :href="vLink()" target="_blank"><i class="fab fa-youtube" title="Visit video" ></i></a></h3>
 
@@ -35,7 +35,7 @@
 
         <br/>
         <br/>
-        <router-link to="/">Video List</router-link>
+        <a href="#" @click="$router.go(-1)">‹ Back</a>
       </div>
       
       <div v-else>
@@ -62,7 +62,8 @@ export default {
     }
   },
   mounted: function() {
-    if(this.video === null) {
+    if(this.video === null || this.video.id != Number(this.id)) {
+      this.video = null
       this.$.ajax({
         method: 'GET',
         url: '/videos/' + this.id,

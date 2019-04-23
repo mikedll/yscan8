@@ -4,6 +4,12 @@
     <div v-if="videos">
       <div class="row">
         <div class="col">
+          <a href="#" @click="$router.go(-1)">‹ Back</a>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
           <h3>{{ heading }} <a target="_blank" :href="channelLink()" v-if="channelLink() !== ''"><i class="fab fa-youtube"></i></a></h3>
 
           Average Score: {{ averageScore }}
@@ -35,7 +41,7 @@
 
       <div class="row">
         <div class="col">
-          <router-link to="/">Video List</router-link>
+          <a href="#" @click="$router.go(-1)">‹ Back</a>
         </div>
       </div>
     

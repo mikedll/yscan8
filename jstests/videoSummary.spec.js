@@ -12,10 +12,21 @@ describe('VideoSummary', () => {
     router = new VueRouter()
   })
 
+  test('render links to youtube video and youtube channel', () => {
+  })
+  
   test('looks for data if initial load is not provided', () => {
     let $ = sinon.fake()
     $.ajax = sinon.fake()
     const wrapper = mount(VideoSummary, { localVue, router, propsData: { id: "4", $ } })
+    expect($.ajax.calledWithMatch({method: 'GET', url: '/videos/4'})).toBeTruthy()
+  })
+    
+  test('looks for data if initial load does not match request id', () => {
+    let $ = sinon.fake()
+    $.ajax = sinon.fake()
+    let initialLoad = { id: 2 }
+    const wrapper = mount(VideoSummary, { localVue, router, propsData: { id: "4", $, initialLoad } })
     expect($.ajax.calledWithMatch({method: 'GET', url: '/videos/4'})).toBeTruthy()
   })
     
