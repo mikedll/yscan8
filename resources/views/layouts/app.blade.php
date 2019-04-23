@@ -13,9 +13,11 @@
   </head>
   <body>
 
-    <div class="container" id="main-container">
-      
-      @yield('content')
+    <div class="container root-container">
+
+      <div id="main-container">
+        @yield('content')
+      </div>
 
       <div class="row" >
         <div class="col footer" >
