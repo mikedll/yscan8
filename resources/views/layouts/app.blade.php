@@ -20,7 +20,7 @@
 
       <div class="row" >
         <div class="col footer" >
-          Copyright (c) 2018 <a href="https://mikedll.blogspot.com/" target="_blank">Michael Rivera</a>
+          Copyright (c) 2019 <a href="http://mikedll.netlify.com/" target="_blank">Michael Rivera</a>
           |
           <a href="https://github.com/mikedll/yscan8" target="_blank"><i class="fab fa-github" ></i> Source Code</a>
           
