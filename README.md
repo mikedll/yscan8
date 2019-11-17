@@ -42,7 +42,7 @@ and anything else it complains is missing.
 
      # Install php-version on OS X
      brew tap wilmoore/formulae
-     brew install php-version     
+     brew install php-version
 
 Modify your bash script accordingly to load php 7 on a new shell (see
 output of php-version installation).
