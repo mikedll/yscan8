@@ -33,7 +33,7 @@ GEM
       thor (~> 0, >= 0.14)
       unf (~> 0, >= 0.1)
     concurrent-ruby (1.0.5)
-    crass (1.0.4)
+    crass (1.0.6)
     daemons (1.2.6)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
@@ -60,20 +60,22 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     ipaddress (0.8.3)
-    loofah (2.2.3)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.5.5)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.6.1)
     minitest (5.11.3)
     multi_json (1.13.1)
     netrc (0.11.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
     polyglot (0.3.5)
+    racc (1.6.1)
     rack (1.6.10)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -105,7 +107,7 @@ PLATFORMS
 
 DEPENDENCIES
   cknife
-  loofah (~> 2.2.3)
+  loofah (~> 2.19.1)
 
 RUBY VERSION
    ruby 2.5.1p57
